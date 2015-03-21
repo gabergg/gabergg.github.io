@@ -42,7 +42,7 @@ function tryMove(location) {
 function checkWin(player) {
     var set = hasTwoInRow(player);
 
-    //figure out which row they have 2, and finish it.
+    //figure out which row has 2, and finish it.
     if (set) {
         for (var i = 0; i < set.length; i++) {
             if (tryMove(set[i]))
@@ -50,15 +50,15 @@ function checkWin(player) {
         }
     }
     return false;
-
 }
 
 function check(cornerOrSide) {
     var foundSpace = false;
+    //take the first available corner or side.
     $(cornerOrSide).each(function (index, element) {
         if (!foundSpace && tryMove(element.id)) {
             foundSpace = true;
-            return false;
+            return false; //break from "each"
         }
     });
     return foundSpace;

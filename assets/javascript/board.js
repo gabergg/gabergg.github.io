@@ -1,12 +1,7 @@
 var setsOfThree = ['123', '456', '789', '147', '258', '369', '159', '357'];
 
-$('.cell').click(function (event) {
-
-    if ($(this).html() == '') {
-        $(this).html('X');
-        adjustSetCount('X', event.target.id);
-        aiPlay();
-    }
+$(function init() {
+    resetBoard();
 });
 
 function resetBoard() {
@@ -19,26 +14,17 @@ function resetBoard() {
 
 }
 
-$(function init() {
-    resetBoard();
+$('.cell').click(function (event) {
+
+    if ($(this).html() == '') {
+        $(this).html('X');
+        adjustSetCount('X', event.target.id);
+        aiPlay();
+    }
 });
 
-function hasTwoInRow(player) {
-    for (var i = 0; i < setsOfThree.length; i++) {
-
-        if (player == 'X') {
-            if ($('#board').data(setsOfThree[i]).X == 2 && $('#board').data(setsOfThree[i]).O == 0)
-                return setsOfThree[i];
-        } else {
-            if ($('#board').data(setsOfThree[i]).O == 2 && $('#board').data(setsOfThree[i]).X == 0)
-                return setsOfThree[i];
-        }
-
-    }
-    return null;
-}
-
 function adjustSetCount(player, cell) {
+    //mapping increased count to each of the 3-sets that include played cell.
     for (var i = 0; i < setsOfThree.length; i++) {
         if (setsOfThree[i].indexOf(cell) > -1) {
             if (player == 'X') {
@@ -53,6 +39,22 @@ function adjustSetCount(player, cell) {
     checkGameStatus();
 }
 
+function hasTwoInRow(player) {
+    for (var i = 0; i < setsOfThree.length; i++) {
+
+        if (player == 'X') {
+            //X has 2 in a 3-set, with the remaining cell open.
+            if ($('#board').data(setsOfThree[i]).X == 2 && $('#board').data(setsOfThree[i]).O == 0)
+                return setsOfThree[i];
+        } else {
+            if ($('#board').data(setsOfThree[i]).O == 2 && $('#board').data(setsOfThree[i]).X == 0)
+                return setsOfThree[i];
+        }
+
+    }
+    return null;
+}
+
 function checkGameStatus() {
     for (var i = 0; i < setsOfThree.length; i++) {
 
@@ -61,7 +63,7 @@ function checkGameStatus() {
             resetBoard();
         }
         else if ($('#board').data(setsOfThree[i]).O == 3) {
-            alert("Computer wins!");
+            alert("Uh oh! Computer wins!");
             resetBoard();
         }
 
