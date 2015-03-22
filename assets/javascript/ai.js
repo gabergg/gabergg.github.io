@@ -19,11 +19,11 @@ function decideMove() {
     else if (this.checkWin('X')) {
     }
     //Ai tries to block corner fork
-    /*else if (($('#board').data('159').X == 2 || $('#board').data('357').X == 2) && this.check('.side')) {
-     }*/
-    //Ai tries to block side/corner fork
-    /*else if (checkPotentialForks()) {
-     }*/
+    else if (($('#board').data('159').X == 2 || $('#board').data('357').X == 2) && $('#5').html() == 'O' && this.check('.side')) {
+     }
+    //Ai tries to block other fork
+    else if ($('#board').data('numTurns') == 3 && checkPotentialFork()) {
+    }
     else if (this.check('.corner')) {
     }
     //Ai plays in a side
@@ -55,17 +55,28 @@ function checkWin(player) {
     return false;
 }
 
-
 function checkPotentialFork() {
+    var foundSpace = false;
+    var possibleBlocks = {};
     $('.cell:contains("X")').each(function () {
-        console.log(this.id);
+        var idSets = numHash[this.id];
+        for (var i = 0; i < idSets.length; i++) {
+            if ($('#board').data(idSets[i]).X + $('#board').data(idSets[i]).O == 1) {
+                for (var j = 0; j < idSets[i].length; j++) {
+                    if ($('#' + idSets[i][j]).html() != 'X') {
+                        if (possibleBlocks[idSets[i][j]] && tryMove(idSets[i][j])) {
+                            foundSpace = true;
+                            return false;
+                        }
+                        else
+                            possibleBlocks[idSets[i][j]] = true;
+                    }
+                }
+            }
+        }
 
     });
-    for (var i = 1; i < 10; i++) {
-        $('#board').data(numHash[i])
-        numHash[i]
-    }
-    return false;
+    return foundSpace;
 }
 
 function check(cornerOrSide) {

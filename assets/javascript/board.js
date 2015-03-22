@@ -3,7 +3,7 @@
 var setsOfThree = ['123', '456', '789', '147', '258', '369', '159', '357']; //all sets of 3
 var numHash = {};
 
-$(function init() {
+$(function() {
     resetBoard();
 });
 

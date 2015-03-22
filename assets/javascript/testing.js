@@ -4,11 +4,12 @@ function alertToConsole() {
     }
 }
 
-var possiblePaths = [];
+
 
 function runTest() {
 
     alertToConsole();
+    var possiblePaths = [];
 
     $('.cell:empty').each(function () {
         possiblePaths.push(this.id);
