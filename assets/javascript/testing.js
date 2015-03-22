@@ -4,7 +4,7 @@ function alertToConsole() {
     }
 }
 
-var possiblePaths = []
+var possiblePaths = [];
 
 function runTest() {
 
@@ -18,12 +18,10 @@ function runTest() {
         len = possiblePaths.length;
         for (var i = 0; i < len; i++) {
             $('body').data("alert", "");
-            for (var j = 0; !finishedUp && j < possiblePaths[i].length; j++) {
+            for (var j = 0; j < possiblePaths[i].length; j++) {
                 $('#' + possiblePaths[i][j]).trigger('click');
-                if ($('body').data("alert")) {
-                    if ($('body').data("alert") == "You win!") {
-                        console.error("Test Failed!", possiblePaths[i]);
-                    }
+                if ($('body').data("alert") == "You win!") {
+                    console.error("Test Failed!", possiblePaths[i]);
                 }
             }
             if (!$('body').data("alert")) {
