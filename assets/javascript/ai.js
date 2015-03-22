@@ -20,7 +20,7 @@ var ai = {
         else if (this.checkWin('X')) {
         }
         //Ai tries to block corner fork
-        else if (($('#board').data('159')['X'] == 2 || $('#board').data('357')['X'] == 2) && $('#5').html() == 'O' && this.check('.side')) {
+        else if (this.diagonalForkSetup() && this.check('.side')) {
         }
         //Ai tries to block other fork
         else if ($('#board').data('numTurns') == 3 && this.checkPotentialFork()) {
@@ -28,10 +28,7 @@ var ai = {
         else if (this.check('.corner')) {
         }
         //Ai plays in a side
-        else {
-            this.check('.side');
-        }
-
+        else this.check('.side');
     },
 
     tryMove: function (location) {
@@ -43,6 +40,7 @@ var ai = {
         return false;
     },
 
+    //try to complete a 3set, or stop X from completing a 3set, if 2 in a row.
     checkWin: function (player) {
         var set = board.hasTwoInRow(player);
 
@@ -56,21 +54,26 @@ var ai = {
         return false;
     },
 
+    //check for the possibility of player creating a fork. logic as follows:
+    //  look for X is two separate sets, each with 2 open cells remaining.
+    //  find the cell that these sets share and go there.
+    //    in order to do this, we create a map to check for dupes in the entire intersection of sets for these X cells,
+    //    disregarding those X cells themselves.
     checkPotentialFork: function () {
         var foundSpace = false;
         var possibleBlocks = {};
         $('.cell:contains("X")').each(function () {
-            var idSets = board.numHash[this.id];
-            for (var i = 0; i < idSets.length; i++) {
-                if ($('#board').data(idSets[i])['X'] + $('#board').data(idSets[i])['O'] == 1) {
-                    for (var j = 0; j < idSets[i].length; j++) {
-                        if ($('#' + idSets[i][j]).html() != 'X') {
-                            if (possibleBlocks[idSets[i][j]] && ai.tryMove(idSets[i][j])) {
+            var cellSets = board.numHash[this.id];
+            for (var i = 0; i < cellSets.length; i++) {
+                if ($('#board').data(cellSets[i])['X'] + $('#board').data(cellSets[i])['O'] == 1) { //sets with only 1 cell marked
+                    for (var j = 0; j < cellSets[i].length; j++) {
+                        if ($('#' + cellSets[i][j]).html() != 'X') { //disregard those X cells
+                            if (possibleBlocks[cellSets[i][j]] && ai.tryMove(cellSets[i][j])) { //found dupe, take it.
                                 foundSpace = true;
                                 return false;
                             }
                             else
-                                possibleBlocks[idSets[i][j]] = true;
+                                possibleBlocks[cellSets[i][j]] = true;
                         }
                     }
                 }
@@ -80,9 +83,9 @@ var ai = {
         return foundSpace;
     },
 
+    //try to take the first available corner or side.
     check: function (cornerOrSide) {
         var foundSpace = false;
-        //take the first available corner or side.
         $(cornerOrSide).each(function (index, element) {
             if (!foundSpace && ai.tryMove(element.id)) {
                 foundSpace = true;
@@ -90,5 +93,10 @@ var ai = {
             }
         });
         return foundSpace;
+    },
+
+    //check if X is in a position to fork across the center, diagonally.
+    diagonalForkSetup: function () {
+        return ($('#board').data('159')['X'] == 2 || $('#board').data('357')['X'] == 2) && $('#5').html() == 'O';
     }
 }
