@@ -1,4 +1,7 @@
-var setsOfThree = ['123', '456', '789', '147', '258', '369', '159', '357'];
+//Will maintain counts of each player's marks in each possible set of 3.
+//Stored in $('#board').data
+var setsOfThree = ['123', '456', '789', '147', '258', '369', '159', '357']; //all sets of 3
+var numHash = {};
 
 $(function init() {
     resetBoard();
@@ -75,3 +78,14 @@ function checkGameStatus() {
     }
 
 }
+
+$(function createNumHash() {
+
+    for (var i = 1; i < 10; i++) {
+        numHash[i] = [];
+        for (var j = 0; j < setsOfThree.length; j++) {
+            if (setsOfThree[j].indexOf(i) > -1)
+                numHash[i].push(setsOfThree[j]);
+        }
+    }
+});

@@ -5,6 +5,7 @@ function aiPlay() {
 
 function decideMove() {
 
+
     //Table cleared, game hasn't started yet. Don't try to sneak a move, 'O'!
     if ($('#board').data('numTurns') < 1)
         return;
@@ -18,9 +19,11 @@ function decideMove() {
     else if (this.checkWin('X')) {
     }
     //Ai tries to block corner fork
-    else if (($('#board').data('159').X == 2 || $('#board').data('357').X == 2) && this.check('.side')) {
-    }
-    //Ai plays in a corner
+    /*else if (($('#board').data('159').X == 2 || $('#board').data('357').X == 2) && this.check('.side')) {
+     }*/
+    //Ai tries to block side/corner fork
+    /*else if (checkPotentialForks()) {
+     }*/
     else if (this.check('.corner')) {
     }
     //Ai plays in a side
@@ -48,6 +51,19 @@ function checkWin(player) {
             if (tryMove(set[i]))
                 return true;
         }
+    }
+    return false;
+}
+
+
+function checkPotentialFork() {
+    $('.cell:contains("X")').each(function () {
+        console.log(this.id);
+
+    });
+    for (var i = 1; i < 10; i++) {
+        $('#board').data(numHash[i])
+        numHash[i]
     }
     return false;
 }

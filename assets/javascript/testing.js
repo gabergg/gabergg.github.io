@@ -33,5 +33,7 @@ function runTest() {
         }
         possiblePaths.splice(0, len);
     }
+    
+    delete window.alert;
 
 }
