@@ -16,6 +16,7 @@ var testing = {
     testPlayerWins: function () {
         this.alertToConsole();
         var possiblePaths = [];
+        var passed = true;
 
         $('.cell:empty').each(function () {
             possiblePaths.push(this.id);
@@ -29,6 +30,7 @@ var testing = {
                     $('#' + possiblePaths[i][j]).trigger('click');
                     if ($('body').data("alert") == "You win!") {
                         console.error("Test Failed!", possiblePaths[i]); //player was able to win, log winning play
+                        passed = false;
                     }
                 }
                 if (!$('body').data("alert")) {
@@ -42,5 +44,6 @@ var testing = {
         }
 
         this.stopConsoleAlert();
+        return passed ? "Player can't win!" : "Noo! Player can win!";
     }
 }
