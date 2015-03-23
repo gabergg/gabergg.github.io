@@ -1,12 +1,25 @@
-var gameboard = new Board();
+$(function () {
+    window.gameboard = new Board($('#board'));
+    gameboard.createNumHash();
+    gameboard.reset();
+    $('.cell').click(function (event) {
 
-function Board() {
+        if ($(this).html() == '') {
+            $(this).html('X');
+            gameboard.adjustSetCount('X', event.target.id);
+            ai.play();
+        }
+    });
+});
+
+function Board(boardDiv) {
+    this.board = boardDiv;
 }
+
 //Will maintain counts of each player's marks in each possible set of 3.
 //Stored in $('#board').data
 Board.prototype.setsOfThree = ['123', '456', '789', '147', '258', '369', '159', '357']; //all sets of 3
 Board.prototype.numHash = {}; //to be a map of all sets in which a cell are included. e.g. 1-> 123, 147, 159, 2 -> 123, 258,
-Board.prototype.board = $('#board');
 
 //clear board and all game-specific data
 Board.prototype.reset = function () {
@@ -85,17 +98,3 @@ Board.prototype.createNumHash = function () {
         }
     }
 }
-
-$(function () {
-    gameboard.createNumHash();
-    gameboard.reset();
-    $('.cell').click(function (event) {
-
-        if ($(this).html() == '') {
-            $(this).html('X');
-            gameboard.adjustSetCount('X', event.target.id);
-            ai.play();
-        }
-    });
-});
-

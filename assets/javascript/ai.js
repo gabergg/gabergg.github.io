@@ -1,4 +1,6 @@
-var ai = new AI();
+$(function () {
+    window.ai = new AI()
+});
 
 function AI() {
 }
