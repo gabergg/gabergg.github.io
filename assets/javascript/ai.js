@@ -8,7 +8,7 @@ var ai = {
     decideMove: function () {
 
         //Table cleared, game hasn't started yet. Don't try to sneak a move, 'O'!
-        if ($('#board').data('numTurns') < 1)
+        if (gameboard.board.data('numTurns') < 1)
             return;
         //Try to take the middle. This won't ever succeed after the first exchange.
         if (this.tryMove('5')) {
@@ -34,7 +34,7 @@ var ai = {
     tryMove: function (location) {
         if ($('#' + location).html() == '') {
             $('#' + location).html('O');
-            board.adjustSetCount('O', location);
+            gameboard.adjustSetCount('O', location);
             return true;
         }
         return false;
@@ -42,7 +42,7 @@ var ai = {
 
     //try to complete a 3set, or stop X from completing a 3set, if 2 in a row.
     checkWin: function (player) {
-        var set = board.hasTwoInRow(player);
+        var set = gameboard.hasTwoInRow(player);
 
         //figure out which row has 2, and finish it.
         if (set) {
@@ -63,9 +63,9 @@ var ai = {
         var foundSpace = false;
         var possibleBlocks = {};
         $('.cell:contains("X")').each(function () {
-            var cellSets = board.numHash[this.id];
+            var cellSets = gameboard.numHash[this.id];
             for (var i = 0; i < cellSets.length; i++) {
-                if ($('#board').data(cellSets[i])['X'] + $('#board').data(cellSets[i])['O'] == 1) { //sets with only 1 cell marked
+                if (gameboard.board.data(cellSets[i])['X'] + gameboard.board.data(cellSets[i])['O'] == 1) { //sets with only 1 cell marked
                     for (var j = 0; j < cellSets[i].length; j++) {
                         if ($('#' + cellSets[i][j]).html() != 'X') { //disregard those X cells
                             if (possibleBlocks[cellSets[i][j]] && ai.tryMove(cellSets[i][j])) { //found dupe, take it.
@@ -97,6 +97,6 @@ var ai = {
 
     //check if X is in a position to fork across the center, diagonally.
     diagonalForkSetup: function () {
-        return ($('#board').data('159')['X'] == 2 || $('#board').data('357')['X'] == 2) && $('#5').html() == 'O';
+        return (gameboard.board.data('159')['X'] == 2 || gameboard.board.data('357')['X'] == 2) && $('#5').html() == 'O';
     }
 }
