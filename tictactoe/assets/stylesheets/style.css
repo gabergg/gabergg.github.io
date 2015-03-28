@@ -1,0 +1,11 @@
+.cell {
+    background-color: lightgrey;
+    width: 100px;
+    height: 100px;
+    border: solid 1px black;
+    text-align: center;
+}
+
+body {
+    padding: 20px;
+}
