@@ -18,7 +18,7 @@ function createNewFormEl(roasterId) {
   formEl.appendChild(thumbnailEl)
   formEl.appendChild(locationEl)
   formEl.appendChild(descriptionEl)
-  formEl.addEventListener('click' (e) => {e.stopPropagation()})
+  formEl.addEventListener('click', (e) => {e.stopPropagation()})
   return formEl
 }
 
