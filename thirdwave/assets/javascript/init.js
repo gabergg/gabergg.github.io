@@ -41,7 +41,9 @@ function createNewFormEl(roasterId) {
   return formEl
 }
 
-updateRoaster
+function updateRoaster() {
+
+}
 
 function getAllRoasters() {
   const url = 'https://twcoffee.herokuapp.com/api/v1/roasters/top'
