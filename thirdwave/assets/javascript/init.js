@@ -1,5 +1,5 @@
 function getAllRoasters() {
-  const url = 'https://twcoffee.herokuapp.com/api/v1/roasters/all'
+  const url = 'https://twcoffee.herokuapp.com/api/v1/roasters/top'
   fetch(url).then((response) => {
     console.log("response", response)
   })
