@@ -6,7 +6,8 @@ function getAllRoasters() {
       const roasterEl = document.getElementById('roasters')
       results.forEach((roaster) => {
         const newEl = document.createElement('div')
-        newEl.innerText = roaster
+        newEl.innerText = JSON.stringify(roaster)
+        newEl.addEventListener('click', () => console.log(roaster))
         roasterEl.appendChild(newEl)
       })
 
