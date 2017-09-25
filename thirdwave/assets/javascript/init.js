@@ -6,3 +6,5 @@ function getAllRoasters() {
   const roasterEl = document.getElementById('roasters')
 
 }
+
+getAllRoasters()
