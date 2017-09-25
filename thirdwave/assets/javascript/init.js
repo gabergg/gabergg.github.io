@@ -1,3 +1,25 @@
+const updateForms = {}
+
+function toggleUpdateForm() {
+  if (el.style.display === 'none') {
+    el.style.display = 'block'
+  } else {
+    el.style.display = 'none'
+  }
+}
+
+function createNewFormEl(roasterId) {
+  const formEl = document.createElement('form')
+  const nameEl = document.createElement('input')
+  const thumbnailEl = document.createElement('input')
+  const locationEl = document.createElement('input')
+  const descriptionEl = document.createElement('input')
+  formEl.appendChild(nameEl)
+  formEl.appendChild(thumbnailEl)
+  formEl.appendChild(locationEl)
+  formEl.appendChild(descriptionEl)
+}
+
 function getAllRoasters() {
   const url = 'https://twcoffee.herokuapp.com/api/v1/roasters/top'
   fetch(url).then((response) => {
@@ -6,8 +28,10 @@ function getAllRoasters() {
       const roasterEl = document.getElementById('roasters')
       results.forEach((roaster) => {
         const newEl = document.createElement('div')
-        newEl.innerText = JSON.stringify(roaster)
-        newEl.addEventListener('click', () => console.log(roaster))
+        newEl.innerText = `${roaster.id} --- ${roaster.name} --- ${roaster.location}`
+        const updateFormEl = createNewFormEl(roaster.id)
+        newEl.addEventListener('click', () => toggleUpdateForm(updateFormEl))
+        newEl.appendChild(updateFormEl)
         roasterEl.appendChild(newEl)
       })
 
