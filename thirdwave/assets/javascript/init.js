@@ -18,6 +18,7 @@ function createNewFormEl(roasterId) {
   formEl.appendChild(thumbnailEl)
   formEl.appendChild(locationEl)
   formEl.appendChild(descriptionEl)
+  return formEl
 }
 
 function getAllRoasters() {
