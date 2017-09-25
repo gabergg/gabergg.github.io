@@ -1,6 +1,6 @@
 const updateForms = {}
 
-function toggleUpdateForm() {
+function toggleUpdateForm(el) {
   if (el.style.display === 'none') {
     el.style.display = 'block'
   } else {
