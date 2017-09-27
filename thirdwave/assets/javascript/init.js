@@ -39,10 +39,9 @@ function updateRoaster(roasterId, e) {
       payload[name] = value
     }
   }
-  console.log("form data", new FormData(e.target))
   fetch(url, {
     method: 'PUT',
-    body: new FormData(e.target),
+    body: JSON.stringify(payload),
   })
   console.log("submitted", roasterId);
 }
