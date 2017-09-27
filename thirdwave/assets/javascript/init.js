@@ -30,7 +30,9 @@ function createNewFormEl(roasterId) {
 }
 
 function updateRoaster(roasterId, e) {
+  const url = `https://twcoffee.herokuapp.com/api/v1/roasters/roaster/${roasterId}`
   e.preventDefault();
+  console.log(this)
   console.log(e)
   console.log("submitted", roasterId);
 }
