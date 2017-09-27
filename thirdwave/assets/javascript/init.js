@@ -41,7 +41,6 @@ function updateRoaster(roasterId, e) {
   }
   console.log("form data", new FormData(e.target))
   fetch(url, {
-    headers: { 'Content-Type': 'application/json' },
     method: 'PUT',
     body: new FormData(e.target),
   })
