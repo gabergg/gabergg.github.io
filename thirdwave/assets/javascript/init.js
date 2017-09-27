@@ -24,7 +24,7 @@ function createNewFormEl(roasterId) {
   const formEl = document.createElement('form')
   formEl.addEventListener('click', (e) => {e.stopPropagation()})
   formEl.style.display = 'none'
-  formEl.onsubmit = 'updateRoaster()'
+  formEl.addEventListener('submit', updateRoaster)
   formEl.innerHTML = formHTML
   return formEl
 }
