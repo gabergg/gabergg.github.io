@@ -33,13 +33,17 @@ function updateRoaster(roasterId, e) {
   e.preventDefault()
   const url = `https://twcoffee.herokuapp.com/api/v1/roasters/roaster/${roasterId}`
   const payload = {}
-  for (let i=0; i<e.target.length; i++) {
+  for (let i = 0; i < e.target.length - 1; i++) {
     const {name, value} = e.target[i]
     if (value) {
       payload[name] = value
     }
   }
-  console.log('payload', payload)
+  console.log("form data", new FormData(e.target))
+  fetch(url, {
+    method: 'PUT',
+    body: payload,
+  })
   console.log("submitted", roasterId);
 }
 
