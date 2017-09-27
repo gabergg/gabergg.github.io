@@ -48,7 +48,6 @@ function updateRoaster(roasterId, e) {
 }
 
 function getAllRoasters() {
-  console.log("WE ALL?")
   const url = 'https://twcoffee.herokuapp.com/api/v1/roasters/all'
   fetch(url).then((response) => {
     response.json().then((results) => {
