@@ -24,14 +24,15 @@ function createNewFormEl(roasterId) {
   const formEl = document.createElement('form')
   formEl.addEventListener('click', (e) => {e.stopPropagation()})
   formEl.style.display = 'none'
-  formEl.addEventListener('submit', updateRoaster)
+  formEl.addEventListener('submit', updateRoaster.bind(this, roasterId))
   formEl.innerHTML = formHTML
   return formEl
 }
 
-function updateRoaster(e) {
+function updateRoaster(roasterId, e) {
   e.preventDefault();
-  console.log("submitted");
+  console.log(e)
+  console.log("submitted", roasterId);
 }
 
 function getAllRoasters() {
